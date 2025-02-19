@@ -8,19 +8,18 @@ A solução foi desenvolvida em .NET Core utilizando uma abordagem simples e dir
 ## Estrutura do Projeto
 
 CapitalGains/
-│
 ├── Domain/
 │   ├── Entities/
-│   │   └── TradeOperation.cs
+│   │   └── TradeOperation.cs            // Representa uma operação de compra ou venda
 │   ├── Enums/
-│   │   └── OperationType.cs
+│   │   └── OperationType.cs              // Define os tipos de operação (Buy/Sell)
+│   ├── Interfaces/
+│   │   └── ITradeOperationValidator.cs   // Define o contrato para validação de operações
 │   └── Services/
-│       └── CapitalGainsCalculator.cs 
-│       └── TradeOperationValidator.cs
-│   ├── Interface/
-│        └── ITradeOperationValidator.cs 
+│       ├── CapitalGainsCalculator.cs     // Responsável por calcular os impostos
+│       └── TradeOperationValidator.cs    // Implementa a validação das operações
 └── Presentation/
-    └── Program.cs
+    └── Program.cs                        // Ponto de entrada da aplicação (CLI/API)
     
 O projeto é dividido em duas camadas principais:
 
