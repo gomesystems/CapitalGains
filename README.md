@@ -7,6 +7,21 @@ A solução foi desenvolvida em .NET Core utilizando uma abordagem simples e dir
 
 ## Estrutura do Projeto
 
+CapitalGains/
+│
+├── Domain/
+│   ├── Entities/
+│   │   └── TradeOperation.cs
+│   ├── Enums/
+│   │   └── OperationType.cs
+│   └── Services/
+│       └── CapitalGainsCalculator.cs 
+│       └── TradeOperationValidator.cs
+│   ├── Interface/
+│        └── ITradeOperationValidator.cs 
+└── Presentation/
+    └── Program.cs
+    
 O projeto é dividido em duas camadas principais:
 
 - **Domain**: Contém a lógica de negócio, as entidades e os serviços necessários para o cálculo dos ganhos de capital.
