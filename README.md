@@ -1,45 +1,47 @@
-# Capital Gains - Code Challenge
+# Capital Gains (Ganhos de Capital)
 
-## Descrição
+## DescriÃ§Ã£o
 
-Esta aplicação de linha de comando (CLI) calcula o imposto devido sobre operações de compra e venda de ações, conforme as regras definidas no desafio. A solução foi desenvolvida em .NET Core utilizando uma abordagem simples e direta, sem camadas intermediárias (como DTOs). A entidade `TradeOperation` é utilizada tanto para a deserialização dos dados de entrada quanto para a lógica de negócio, garantindo uma implementação enxuta e fácil de manter.
+Esta aplicaÃ§Ã£o calcula o imposto devido sobre operaÃ§Ãµes de compra e venda de aÃ§Ãµes, conforme as regras definidas no desafio. 
+A soluÃ§Ã£o foi desenvolvida em .NET Core utilizando uma abordagem simples e direta, sem camadas intermediÃ¡rias (como DTOs). A entidade `TradeOperation` Ã© utilizada tanto para a deserializaÃ§Ã£o dos dados de entrada quanto para a lÃ³gica de negÃ³cio, garantindo uma implementaÃ§Ã£o enxuta e fÃ¡cil de manter.
 
 ## Estrutura do Projeto
 
-O projeto é dividido em duas camadas principais:
+O projeto Ã© dividido em duas camadas principais:
 
-- **Domain**: Contém a lógica de negócio, as entidades e os serviços necessários para o cálculo dos ganhos de capital.
-  - **Entities**: Define a entidade `TradeOperation`, que representa uma operação de compra ou venda de ações. Essa entidade é diretamente utilizada para a deserialização do JSON de entrada e para o processamento das regras de negócio.
-  - **Enums**: Define o enum `OperationType`, que representa os tipos de operação (compra ou venda).
-  - **Services**: Implementa a lógica de cálculo dos impostos através do serviço `CapitalGainsCalculator`, que gerencia o estado do portfólio (quantidade de ações, preço médio ponderado e prejuízo acumulado) e processa cada operação na ordem em que ocorre.
+- **Domain**: ContÃ©m a lÃ³gica de negÃ³cio, as entidades e os serviÃ§os necessÃ¡rios para o cÃ¡lculo dos ganhos de capital.
+  - **Entities**: Define a entidade `TradeOperation`, que representa uma operaÃ§Ã£o de compra ou venda de aÃ§Ãµes.
+  - Essa entidade Ã© diretamente utilizada para a deserializaÃ§Ã£o do JSON de entrada e para o processamento das regras de negÃ³cio.
+  - **Enums**: Define o enum `OperationType`, que representa os tipos de operaÃ§Ã£o (compra ou venda).
+  - **Services**: Implementa a lÃ³gica de cÃ¡lculo dos impostos atravÃ©s do serviÃ§o `CapitalGainsCalculator`, que gerencia o estado do portfÃ³lio (quantidade de aÃ§Ãµes, preÃ§o mÃ©dio ponderado e prejuÃ­zo acumulado) e processa cada operaÃ§Ã£o na ordem em que ocorre.
 
-- **Presentation**: Contém o programa principal (CLI) que lê a entrada padrão (STDIN), processa as operações utilizando o serviço de domínio e escreve o resultado na saída padrão (STDOUT).
+- **Presentation**: ContÃ©m o programa principal que lÃª a entrada padrÃ£o (STDIN), processa as operaÃ§Ãµes utilizando o serviÃ§o de domÃ­nio e escreve o resultado na saÃ­da padrÃ£o (STDOUT).
 
-## Regras de Negócio
+## Regras de NegÃ³cio
 
-- **Operação de Compra (buy)**:
-  - Atualiza o portfólio, recalculando a quantidade total de ações e o preço médio ponderado.
-  - Não gera imposto.
+- **OperaÃ§Ã£o de Compra (buy)**:
+  - Atualiza o portfÃ³lio, recalculando a quantidade total de aÃ§Ãµes e o preÃ§o mÃ©dio ponderado.
+  - NÃ£o gera imposto.
 
-- **Operação de Venda (sell)**:
-  - Se o valor total da operação (unit-cost × quantity) for **menor ou igual a R$20.000,00**, nenhum imposto é cobrado.
+- **OperaÃ§Ã£o de Venda (sell)**:
+  - Se o valor total da operaÃ§Ã£o (unit-cost Ã— quantity) for **menor ou igual a R$20.000,00**, nenhum imposto Ã© cobrado.
   - Se o valor total for **maior que R$20.000,00**:
     - Calcula-se o lucro:
       ```
-      lucro = (unit-cost - preço médio ponderado) × quantity
+      lucro = (unit-cost - preÃ§o mÃ©dio ponderado) Ã— quantity
       ```
-    - O prejuízo acumulado de vendas anteriores é deduzido dos lucros.
-    - O imposto é de **20% sobre o lucro positivo** (após dedução dos prejuízos).
-  - Caso a operação resulte em prejuízo, o valor negativo é acumulado para compensar lucros futuros.
-  - Quando todas as ações são vendidas, o preço médio é reiniciado.
+    - O prejuÃ­zo acumulado de vendas anteriores Ã© deduzido dos lucros.
+    - O imposto Ã© de **20% sobre o lucro positivo** (apÃ³s deduÃ§Ã£o dos prejuÃ­zos).
+  - Caso a operaÃ§Ã£o resulte em prejuÃ­zo, o valor negativo Ã© acumulado para compensar lucros futuros.
+  - Quando todas as aÃ§Ãµes sÃ£o vendidas, o preÃ§o mÃ©dio Ã© reiniciado.
 
-## Compilação e Execução
+## CompilaÃ§Ã£o e ExecuÃ§Ã£o
 
-### Pré-requisitos
+### PrÃ©-requisitos
 
 - [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
 
-### Compilação
+### CompilaÃ§Ã£o
 
 Na pasta raiz do projeto, execute:
 
@@ -47,32 +49,35 @@ Na pasta raiz do projeto, execute:
 dotnet build
 
 
-### Decisões Técnicas e Arquiteturais
+### DecisÃµes TÃ©cnicas e Arquiteturais
 
 - Simplicidade e Direto ao Ponto:
 
-- A solução utiliza a entidade TradeOperation diretamente para representar as operações, eliminando a 
-necessidade de conversão ou camadas de DTO. Isso simplifica a arquitetura e reduz o código, mantendo o 
-foco na lógica de negócio.
+- A soluÃ§Ã£o utiliza a entidade TradeOperation diretamente para representar as operaÃ§Ãµes, eliminando a 
+necessidade de conversÃ£o ou camadas de DTO. Isso simplifica a arquitetura e reduz o cÃ³digo, mantendo o 
+foco na lÃ³gica de negÃ³cio.
 
 Domain-Driven Design (DDD):
 
-- Mesmo com uma abordagem simplificada, a lógica de negócio é isolada na camada de domínio. 
-A entidade e o serviço encapsulam as regras de cálculo de impostos, facilitando futuras extensões 
-sem afetar a camada de apresentação.
+- Mesmo com uma abordagem simplificada, a lÃ³gica de negÃ³cio Ã© isolada na camada de domÃ­nio. 
+A entidade e o serviÃ§o encapsulam as regras de cÃ¡lculo de impostos, facilitando futuras extensÃµes 
+sem afetar a camada de apresentaÃ§Ã£o.
 
 Clean Code:
 
-- O código foi estruturado para ser legível e de fácil manutenção, com comentários explicativos e responsabilida
+- O cÃ³digo foi estruturado para ser legÃ­vel e de fÃ¡cil manutenÃ§Ã£o, com comentÃ¡rios explicativos e responsabilida
 des bem definidas em cada componente.
 
-Uso de STDIN/STDOUT:
-
-- A aplicação foi projetada para operar em ambientes de linha de comando, permitindo 
-redirecionamento de entrada e saída. Isso facilita a integração com pipelines e testes automatizados.
 
 Arquitetura em Camadas:
 
-- A separação entre a camada de domínio e a camada de apresentação garante que a 
-lógica de negócio esteja isolada dos detalhes de interface, permitindo uma evolução 
+- A separaÃ§Ã£o entre a camada de domÃ­nio e a camada de apresentaÃ§Ã£o garante que a 
+lÃ³gica de negÃ³cio esteja isolada dos detalhes de interface, permitindo uma evoluÃ§Ã£o 
 independente de cada camada.
+
+### Exemplo de Teste de Entrada:
+
+[{"operation":"buy", "unit-cost":10.00, "quantity": 10000},
+ {"operation":"sell", "unit-cost":50.00, "quantity": 10000},
+ {"operation":"buy", "unit-cost":20.00, "quantity": 10000},
+ {"operation":"sell", "unit-cost":50.00, "quantity": 10000}]
