@@ -20,7 +20,7 @@ CapitalGains/
 │       └── TradeOperationValidator.cs    // Implementa a validação das operações
 └── Presentation/
     └── Program.cs                        // Ponto de entrada da aplicação (CLI/API)
-    
+
 O projeto é dividido em duas camadas principais:
 
 - **Domain**: Contém a lógica de negócio, as entidades e os serviços necessários para o cálculo dos ganhos de capital.
