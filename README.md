@@ -7,21 +7,7 @@ A solução foi desenvolvida em .NET Core utilizando uma abordagem simples e dir
 
 ## Estrutura do Projeto
 
-CapitalGains/
-├── Domain/
-│   ├── Entities/
-│   │   └── TradeOperation.cs            // Representa uma operação de compra ou venda
-│   ├── Enums/
-│   │   └── OperationType.cs              // Define os tipos de operação (Buy/Sell)
-│   ├── Interfaces/
-│   │   └── ITradeOperationValidator.cs   // Define o contrato para validação de operações
-│   └── Services/
-│       ├── CapitalGainsCalculator.cs     // Responsável por calcular os impostos
-│       └── TradeOperationValidator.cs    // Implementa a validação das operações
-└── Presentation/
-    └── Program.cs                        // Ponto de entrada da aplicação (CLI/API)
-
-O projeto é dividido em duas camadas principais:
+O projeto é dividido em tres camadas principais:
 
 - **Domain**: Contém a lógica de negócio, as entidades e os serviços necessários para o cálculo dos ganhos de capital.
   - **Entities**: Define a entidade `TradeOperation`, que representa uma operação de compra ou venda de ações.
@@ -30,6 +16,8 @@ O projeto é dividido em duas camadas principais:
   - **Services**: Implementa a lógica de cálculo dos impostos através do serviço `CapitalGainsCalculator`, que gerencia o estado do portfólio (quantidade de ações, preço médio ponderado e prejuízo acumulado) e processa cada operação na ordem em que ocorre.
 
 - **Presentation**: Contém o programa principal que lê a entrada padrão (STDIN), processa as operações utilizando o serviço de domínio e escreve o resultado na saída padrão (STDOUT).
+
+ - **Testes**: X-Unit teste
 
 ## Regras de Negócio
 
